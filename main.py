@@ -85,7 +85,7 @@ questions = [
     {
         "question": "What should you do if you see a user spamming or self-promoting?",
         "options": ["Contact an admin immediately", "Try to handle the situation yourself", "Ignore the situation"],
-        "answer": 3
+        "answer": 2
     },
     {
         "question": "What is the purpose of the '-stop songs' command?",
