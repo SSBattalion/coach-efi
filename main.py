@@ -16,6 +16,109 @@ from highrise.models import SessionMetadata,  GetMessagesRequest, User ,Item, Po
 from typing import Any, Dict, Union
 from highrise.__main__ import *
 import asyncio, random
+questions = [
+    {
+        "question": "What is the command to log into FADbot?",
+        "options": ["-login as mod username", "-login as admin username", "-login as user username"],
+        "answer": 0
+    },
+    {
+        "question": "What is the minimum number of boosts required per day?",
+        "options": ["1", "2", "3"],
+        "answer": 1
+    },
+    {
+        "question": "What should you do if you see a minor being weird with an adult?",
+        "options": ["Contact an admin immediately", "Ignore the situation", "Try to handle the situation yourself"],
+        "answer": 0
+    },
+    {
+        "question": "What is the command to purchase a visa?",
+        "options": ["-buy visa", "-purchase visa", "-get visa"],
+        "answer": 0
+    },
+    {
+        "question": "What should you do if the music bot is broken?",
+        "options": ["Reset the bot by typing '-stop songs'", "Try to fix the bot yourself", "Contact an admin for assistance"],
+        "answer": 0
+    },
+    {
+        "question": "What is the maximum number of credits you can give to a user at a time?",
+        "options": ["50", "100", "200"],
+        "answer": 0
+    },
+    {
+        "question": "What should you do if you see a user under the age of 13?",
+        "options": ["Contact an admin immediately", "Ignore the situation", "Try to handle the situation yourself"],
+        "answer": 0
+    },
+    {
+        "question": "What is the command to view available commands for the music bot?",
+        "options": ["-help", "-commands", "-music bot commands"],
+        "answer": 0
+    },
+    {
+        "question": "What should you do if you have a question or concern about the training?",
+        "options": ["Ask your trainer", "Contact an admin", "Try to figure it out yourself"],
+        "answer": 0
+    },
+    {
+        "question": "How often should you check pinned posts?",
+        "options": ["1-2 times a day", "Once a week", "Once a month"],
+        "answer": 0
+    },
+    {
+        "question": "What should you do if you see a user being harassed or bullied?",
+        "options": ["Contact an admin immediately", "Try to handle the situation yourself", "Ignore the situation"],
+        "answer": 0
+    },
+    {
+        "question": "What is the purpose of the '-access queue' command?",
+        "options": ["To allow FADbot to DM you the queue", "To skip songs", "To reset the music bot"],
+        "answer": 0
+    },
+    {
+        "question": "How many credits can you gift to a friend to purchase an emoji?",
+        "options": ["100", "200", "500"],
+        "answer": 1
+    },
+    {
+        "question": "What should you do if you see a user spamming or self-promoting?",
+        "options": ["Contact an admin immediately", "Try to handle the situation yourself", "Ignore the situation"],
+        "answer": 3
+    },
+    {
+        "question": "What is the purpose of the '-stop songs' command?",
+        "options": ["To reset the music bot", "To skip songs", "To pause the music"],
+        "answer": 0
+    },
+    {
+        "question": "What should you do if you see a user being toxic or rude?",
+        "options": ["Contact an admin immediately", "Try to handle the situation yourself", "Ignore the situation"],
+        "answer": 0
+    },
+    {
+        "question": "How often should you log total boosts when leaving the room?",
+        "options": ["Every time", "Once a day", "Once a week"],
+        "answer": 0
+    },
+    {
+        "question": "What should you do if you see a user asking for personal information?",
+        "options": ["Contact an admin immediately", "Try to handle the situation yourself", "Ignore the situation"],
+        "answer": 0
+    },
+    {
+        "question": "What is the purpose of the '-visa' command?",
+        "options": ["To check if you have an active mod visa account", "To purchase a visa", "To reset the music bot"],
+        "answer": 0
+    },
+    {
+        "question": "What should you do if you see a user sharing inappropriate content?",
+        "options": ["Contact an admin immediately", "Try to handle the situation yourself", "Ignore the situation"],
+        "answer": 0
+    }
+]
+
 
 
 class BotDefinition:
