@@ -4,7 +4,6 @@ import requests
 from highrise import BaseBot, Highrise, Position, AnchorPosition, Reaction
 from highrise import __main__
 from asyncio import run as arun
-from emotes import Dance_Floor
 import asyncio
 from random import choice
 import os
@@ -17,8 +16,6 @@ from highrise.models import SessionMetadata,  GetMessagesRequest, User ,Item, Po
 from typing import Any, Dict, Union
 from highrise.__main__ import *
 import asyncio, random
-from emotes import Emotes
-from emotes import Dance_Floor
 
 
 class BotDefinition:
