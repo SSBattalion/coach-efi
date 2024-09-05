@@ -131,11 +131,7 @@ class Counter:
     usernames = ['Alionardo_']
 
 class Bot(BaseBot):
-    continuous_emote_tasks: Dict[int, asyncio.Task[Any]] = {}  
-    user_data: Dict[int, Dict[str, Any]] = {}
-    continuous_emote_task = None
-    cooldowns = {}  # Class-level variable to store cooldown timestamps
-    emote_looping = False
+
 
 
     def __init__(self):
@@ -153,13 +149,12 @@ class Bot(BaseBot):
     def load_trainer(self):
         try:
             with open("trainer.json", "r") as file:
-                self.trainer_conversation_ids = json.load(file)
+                self.trainer = json.load(file)
         except FileNotFoundError:
-            self.trainer_conversation_ids = []
-
+            self.trainer = []
     def save_trainer(self):
         with open("trainer.json", "w") as file:
-            json.dump(self.trainer_conversation_ids, file)
+            json.dump(self.trainer, file)
     async def on_message(self, user_id: str, conversation_id: str, is_new_conversation: bool) -> None:
 
         response = await self.highrise.get_messages(conversation_id)
@@ -170,9 +165,9 @@ class Bot(BaseBot):
             userinfo = await self.webapi.get_user(user_id)
             username = userinfo.user.username
             if message.lower().startswith("-login as trainer"):
-                if username == "_efi":
+                if username == "_efi" or username == "Alionardo_":
                     if conversation_id not in self.trainer:
-                        self.trainer = [conversation_id]
+                        self.trainer.append(conversation_id)
                         self.save_trainer()
                         await self.highrise.send_message(conversation_id, "Logged in as trainer!")
                     else:
