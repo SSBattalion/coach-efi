@@ -387,17 +387,17 @@ class Bot(BaseBot):
             if self.current_question < len(self.questions):
                 await self.send_question()
             else:
-                await self.end_exercise()
+                await self.end_exercise(user)
         except ValueError:
             await self.highrise.chat("Invalid answer. Please enter a number.")
      
         
-    async def end_exercise(self):
+    async def end_exercise(self ,user:User):
         if self.is_running:
             await self.highrise.chat(f"Exercise ended! \nYour final score is {self.score} out of {len(self.questions)}")
             for conversaion_id in self.trainer :
               try:
-                await self.highrise.send_message(conversation_id ,f"{user.username} has finished your training with score {self.score} out of {len(self.questions)}")
+                await self.highrise.send_message(conversaion_id ,f"{user.username} has finished mod and music bot training with score {self.score} out of {len(self.questions)}")
               except Exception as e:
                 print(f"error: {e}") 
             self.is_running = False
