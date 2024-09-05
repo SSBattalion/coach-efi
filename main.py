@@ -100,7 +100,7 @@ questions = [
     {
         "question": "What is the max amount of credits we can give to a person?",
         "options": ["100 for songs, 500 for emoji", "50 for songs, 200 for emojis", "50 for songs, 500 for emoji"],
-        "answer": 2
+        "answer": 1
     },
     {
         "question": "What is the purpose of the '-visa' command?",
