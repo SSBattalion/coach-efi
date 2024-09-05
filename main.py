@@ -34,8 +34,8 @@ questions = [
     },
     {
         "question": "What is the command to purchase a visa?",
-        "options": ["-buy visa", "-purchase visa", "-get visa"],
-        "answer": 0
+        "options": ["-purchase visa", "-buy visa", "-get visa"],
+        "answer": 1
     },
     {
         "question": "What should you do if the music bot is broken?",
@@ -48,29 +48,24 @@ questions = [
         "answer": 0
     },
     {
-        "question": "What should you do if you see a user under the age of 13?",
-        "options": ["Contact an admin immediately", "Ignore the situation", "Try to handle the situation yourself"],
-        "answer": 0
+        "question": "How do we do when we encounter a person under the age of 13?",
+        "options": [ "Issue them a ban", "Ignore it, but keep a watchful out","Get an admin to issue a Perm Ban"],
+        "answer": 2
     },
     {
         "question": "What is the command to view available commands for the music bot?",
-        "options": ["-help", "-commands", "-music bot commands"],
-        "answer": 0
+        "options": [ "-commands", "-music bot commands","-help"],
+        "answer": 2
     },
     {
         "question": "What should you do if you have a question or concern about the training?",
-        "options": ["Ask your trainer", "Contact an admin", "Try to figure it out yourself"],
-        "answer": 0
+        "options": [ "Contact an admin", "Ask your trainer","Try to figure it out yourself"],
+        "answer": 1
     },
     {
         "question": "How often should you check pinned posts?",
-        "options": ["1-2 times a day", "Once a week", "Once a month"],
-        "answer": 0
-    },
-    {
-        "question": "What should you do if you see a user being harassed or bullied?",
-        "options": ["Contact an admin immediately", "Try to handle the situation yourself", "Ignore the situation"],
-        "answer": 0
+        "options": ["Once a week","1-2 times a day",  "Once a month"],
+        "answer": 1
     },
     {
         "question": "What is the purpose of the '-access queue' command?",
@@ -89,8 +84,8 @@ questions = [
     },
     {
         "question": "What is the purpose of the '-stop songs' command?",
-        "options": ["To reset the music bot", "To skip songs", "To pause the music"],
-        "answer": 0
+        "options": ["To skip songs", "To pause the music","To reset the music bot"],
+        "answer": 2
     },
     {
         "question": "What should you do if you see a user being toxic or rude?",
@@ -103,19 +98,19 @@ questions = [
         "answer": 0
     },
     {
-        "question": "What should you do if you see a user asking for personal information?",
-        "options": ["Contact an admin immediately", "Try to handle the situation yourself", "Ignore the situation"],
-        "answer": 0
+        "question": "What is the max amount of credits we can give to a person?",
+        "options": ["100 for songs, 500 for emoji", "50 for songs, 200 for emojis", "50 for songs, 500 for emoji"],
+        "answer": 2
     },
     {
         "question": "What is the purpose of the '-visa' command?",
-        "options": ["To check if you have an active mod visa account", "To purchase a visa", "To reset the music bot"],
-        "answer": 0
+        "options": [ "To purchase a visa","To check if you have an active mod visa account", "To reset the music bot"],
+        "answer": 1
     },
     {
         "question": "What should you do if you see a user sharing inappropriate content?",
-        "options": ["Contact an admin immediately", "Try to handle the situation yourself", "Ignore the situation"],
-        "answer": 0
+        "options": ["Try to handle the situation yourself", "Ignore the situation","Contact an admin immediately"],
+        "answer": 2
     }
 ]
 
