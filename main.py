@@ -150,20 +150,16 @@ class Bot(BaseBot):
         self.load_trainer()
        
 
-    def load_trainer(self) -> dict:
-      """Load the trainer conversation IDs from the JSON file"""
-      if os.path.exists("conversation_ids.json"):
-        with open("conversation_ids.json", "r") as f:
-            return json.load(f)
-      else:
-        return {}      
-    def save_trainer(self, conversation_id: str) -> None:
-      """Save the trainer conversation ID to the JSON file"""
-      conversation_ids = self.load_trainer()
-      if conversation_id not in conversation_ids:
-        conversation_ids[conversation_id] = True
-        with open("conversation_ids.json", "w") as f:
-            json.dump(conversation_ids, f, indent=4)
+    def load_trainer(self):
+        try:
+            with open("trainer.json", "r") as file:
+                self.trainer_conversation_ids = json.load(file)
+        except FileNotFoundError:
+            self.trainer_conversation_ids = []
+
+    def save_trainer(self):
+        with open("trainer.json", "w") as file:
+            json.dump(self.trainer_conversation_ids, file)
     async def on_message(self, user_id: str, conversation_id: str, is_new_conversation: bool) -> None:
 
         response = await self.highrise.get_messages(conversation_id)
@@ -174,16 +170,15 @@ class Bot(BaseBot):
             userinfo = await self.webapi.get_user(user_id)
             username = userinfo.user.username
             if message.lower().startswith("-login as trainer"):
-              if username == "_efi":
-                logged_in = self.save_trainer(conversation_id)
-                if logged_in:
-                    await self.highrise.send_message(conversation_id, "Logged in as trainer!")
+                if username == "_efi":
+                    if conversation_id not in self.trainer:
+                        self.trainer = [conversation_id]
+                        self.save_trainer()
+                        await self.highrise.send_message(conversation_id, "Logged in as trainer!")
+                    else:
+                        await self.highrise.send_message(conversation_id, "You are already logged in as a trainer!")
                 else:
-                    await self.highrise.send_message(conversation_id, "You are already logged in as a trainer!")
-            else:
-                await self.highrise.send_message(conversation_id, "You are not authorized to log in as a trainer!")
-
-                
+                    await self.highrise.send_message(conversation_id, "You are not authorized to log in as a trainer!")
     async def on_chat(self, user: User, message: str) -> None:
         if message.lower().startswith("-start training") or (message.lower() in ["all clear", "next"] and hasattr(self, 'training_state') and self.training_state is not None):
             await self.training_handler(user, message)
