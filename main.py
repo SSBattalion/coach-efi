@@ -150,21 +150,21 @@ class Bot(BaseBot):
         self.load_trainer()
        
 
-     def load_trainer(self) -> dict:
+    def load_trainer(self) -> dict:
       """Load the trainer conversation IDs from the JSON file"""
       if os.path.exists("conversation_ids.json"):
         with open("conversation_ids.json", "r") as f:
             return json.load(f)
       else:
         return {}      
-     def save_trainer(self, conversation_id: str) -> None:
+    def save_trainer(self, conversation_id: str) -> None:
       """Save the trainer conversation ID to the JSON file"""
       conversation_ids = self.load_trainer()
       if conversation_id not in conversation_ids:
         conversation_ids[conversation_id] = True
         with open("conversation_ids.json", "w") as f:
             json.dump(conversation_ids, f, indent=4)
-     async def on_message(self, user_id: str, conversation_id: str, is_new_conversation: bool) -> None:
+    async def on_message(self, user_id: str, conversation_id: str, is_new_conversation: bool) -> None:
 
         response = await self.highrise.get_messages(conversation_id)
         if isinstance(response, GetMessagesRequest.GetMessagesResponse):
