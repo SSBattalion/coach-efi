@@ -147,10 +147,43 @@ class Bot(BaseBot):
         self.current_question = 0
         self.user_answers = {}
         self.is_running = False 
+        self.load_trainer()
        
 
-      
+     def load_trainer(self) -> dict:
+      """Load the trainer conversation IDs from the JSON file"""
+      if os.path.exists("conversation_ids.json"):
+        with open("conversation_ids.json", "r") as f:
+            return json.load(f)
+      else:
+        return {}      
+     def save_trainer(self, conversation_id: str) -> None:
+      """Save the trainer conversation ID to the JSON file"""
+      conversation_ids = self.load_trainer()
+      if conversation_id not in conversation_ids:
+        conversation_ids[conversation_id] = True
+        with open("conversation_ids.json", "w") as f:
+            json.dump(conversation_ids, f, indent=4)
+     async def on_message(self, user_id: str, conversation_id: str, is_new_conversation: bool) -> None:
 
+        response = await self.highrise.get_messages(conversation_id)
+        if isinstance(response, GetMessagesRequest.GetMessagesResponse):
+            message = response.messages[0].content
+            print (message)
+            response = await self.highrise.get_messages(conversation_id)
+            userinfo = await self.webapi.get_user(user_id)
+            username = userinfo.user.username
+            if message.lower().startswith("-login as trainer"):
+              if username == "_efi":
+                logged_in = self.save_trainer(conversation_id)
+                if logged_in:
+                    await self.highrise.send_message(conversation_id, "Logged in as trainer!")
+                else:
+                    await self.highrise.send_message(conversation_id, "You are already logged in as a trainer!")
+            else:
+                await self.highrise.send_message(conversation_id, "You are not authorized to log in as a trainer!")
+
+                
     async def on_chat(self, user: User, message: str) -> None:
         if message.lower().startswith("-start training") or (message.lower() in ["all clear", "next"] and hasattr(self, 'training_state') and self.training_state is not None):
             await self.training_handler(user, message)
@@ -372,6 +405,11 @@ class Bot(BaseBot):
     async def end_exercise(self):
         if self.is_running:
             await self.highrise.chat(f"Exercise ended! \nYour final score is {self.score} out of {len(self.questions)}")
+            for conversaion_id in self.trainer :
+              try:
+                await self.highrise.send_message(conversation_id ,f"{user.username} has finished your training with score {self.score} out of {len(self.questions)}")
+              except Exception as e:
+                print(f"error: {e}") 
             self.is_running = False
             self.current_question = None
             self.score = 0
@@ -391,6 +429,7 @@ class Bot(BaseBot):
       try:
          Counter.bot_id = session_metadata.user_id
          print("Ali is booting ...") 
+         self.load_trainer()
          await asyncio.sleep(15)
          await self.highrise.chat(f"Coach on duty")
          self.highrise.tg.create_task(self.highrise.walk_to(AnchorPosition(entity_id='ed5f6ba1772586e8bb698eaf', anchor_ix=0)))
