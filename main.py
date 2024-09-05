@@ -90,7 +90,7 @@ questions = [
     {
         "question": "What should you do if you see a user being toxic or rude?",
         "options": ["Contact an admin immediately", "Try to handle the situation yourself", "Ignore the situation"],
-        "answer": 0
+        "answer": 1
     },
     {
         "question": "How often should you log total boosts when leaving the room?",
