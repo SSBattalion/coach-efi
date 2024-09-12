@@ -135,13 +135,13 @@ class Bot(BaseBot):
                   except Exception as e:
                       print(f"An exception occured: {e}")      
     async def on_chat(self, user: User, message: str) -> None:
-        if message.lower() not == "next" and self.training_state is not None :
-            txt = message 
+        if message.lower() != "next" and self.training_state is not None:
+            txt = message
             try:
-                for conversation_id in self.trainer :
-                    await self.highrise.send_message(conversation_id,f"@{user.username} in the training said :\n{txt}")
+                for conversation_id in self.trainer:
+                    await self.highrise.send_message(conversation_id, f"@{user.username} in the training said:\n{txt}")
             except Exception as e:
-                      print(f"An exception occured: {e}")    
+                print(f"An exception occurred: {e}")
         if message.lower().startswith("-start training") or (message.lower() in ["all clear", "next"] and hasattr(self, 'training_state') and self.training_state is not None):
             await self.training_handler(user, message)
         elif message.lower().startswith("-start exercise"):
