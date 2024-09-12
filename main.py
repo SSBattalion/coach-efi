@@ -35,7 +35,7 @@ questions = [
     {
         "question": "What is considered a last resort?",
         "options": ["Kicks/Bans", "Mutes/Kicks", "All of above"],
-        "answer": 0
+        "answer": 2
     },
     {
         "question": "When should a warning take place?",
