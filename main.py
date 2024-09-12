@@ -18,102 +18,56 @@ from highrise.__main__ import *
 import asyncio, random
 questions = [
     {
-        "question": "What is the command to log into FADbot?",
-        "options": ["-login as mod username", "-login as admin username", "-login as user username"],
-        "answer": 0
-    },
-    {
-        "question": "What is the minimum number of boosts required per day?",
-        "options": ["1", "2", "3"],
+        "question": "What should you do if you issue a warning and the person starts to argue?",
+        "options": ["Kick them", "Ignore them and issue a mute if they continue", "Immediately mute them"],
         "answer": 1
     },
     {
-        "question": "What should you do if you see a minor being weird with an adult?",
-        "options": ["Contact an admin immediately", "Ignore the situation", "Try to handle the situation yourself"],
-        "answer": 0
-    },
-    {
-        "question": "What is the command to purchase a visa?",
-        "options": ["-purchase visa", "-buy visa", "-get visa"],
-        "answer": 1
-    },
-    {
-        "question": "What should you do if the music bot is broken?",
-        "options": ["Reset the bot by typing '-stop songs'", "Try to fix the bot yourself", "Contact an admin for assistance"],
-        "answer": 0
-    },
-    {
-        "question": "What is the maximum number of credits you can give to a user at a time?",
-        "options": ["50", "100", "200"],
-        "answer": 0
-    },
-    {
-        "question": "How do we do when we encounter a person under the age of 13?",
-        "options": [ "Issue them a ban", "Ignore it, but keep a watchful out","Get an admin to issue a Perm Ban"],
+        "question": "When you see two people arguing/fighting in the room, how should you respond?",
+        "options": ["Issue a warning", "Separate them", "Ask if they need a mod"],
         "answer": 2
     },
     {
-        "question": "What is the command to view available commands for the music bot?",
-        "options": [ "-commands", "-music bot commands","-help"],
+        "question": "When you see someone spam promotions in chat, what should you do?",
+        "options": ["Mute them", "Issue a warning", "Ignore them"],
         "answer": 2
     },
     {
-        "question": "What should you do if you have a question or concern about the training?",
-        "options": [ "Contact an admin", "Ask your trainer","Try to figure it out yourself"],
-        "answer": 1
-    },
-    {
-        "question": "How often should you check pinned posts?",
-        "options": ["Once a week","1-2 times a day",  "Once a month"],
-        "answer": 1
-    },
-    {
-        "question": "What is the purpose of the '-access queue' command?",
-        "options": ["To allow FADbot to DM you the queue", "To skip songs", "To reset the music bot"],
+        "question": "What is considered a last resort?",
+        "options": ["Kicks/Bans", "Mutes/Kicks", "All of above"],
         "answer": 0
     },
     {
-        "question": "How many credits can you gift to a friend to purchase an emoji?",
-        "options": ["100", "200", "500"],
-        "answer": 1
-    },
-    {
-        "question": "What should you do if you see a user spamming or self-promoting?",
-        "options": ["Contact an admin immediately", "Try to handle the situation yourself", "Ignore the situation"],
-        "answer": 2
-    },
-    {
-        "question": "What is the purpose of the '-stop songs' command?",
-        "options": ["To skip songs", "To pause the music","To reset the music bot"],
-        "answer": 2
-    },
-    {
-        "question": "What should you do if you see a user being toxic or rude?",
-        "options": ["Contact an admin immediately", "Try to handle the situation yourself", "Ignore the situation"],
-        "answer": 1
-    },
-    {
-        "question": "How often should you log total boosts when leaving the room?",
-        "options": ["Every time", "Once a day", "Once a week"],
+        "question": "When should a warning take place?",
+        "options": ["After asking if they need a mod and gaining context", "Immediately after you see the drama/argument", "You don't have to issue a warning"],
         "answer": 0
     },
     {
-        "question": "What is the max amount of credits we can give to a person?",
-        "options": ["100 for songs, 500 for emoji", "50 for songs, 200 for emojis", "50 for songs, 500 for emoji"],
+        "question": "Who is to receive mutes?",
+        "options": ["Spammers", "Beggars", "All of above"],
         "answer": 1
     },
     {
-        "question": "What is the purpose of the '-visa' command?",
-        "options": [ "To purchase a visa","To check if you have an active mod visa account", "To reset the music bot"],
+        "question": "Who is allowed to kick people from the room?",
+        "options": ["Mods", "Admins", "The owner"],
         "answer": 1
     },
     {
-        "question": "What should you do if you see a user sharing inappropriate content?",
-        "options": ["Try to handle the situation yourself", "Ignore the situation","Contact an admin immediately"],
+        "question": "What is the first thing you should do when the music bot breaks down?",
+        "options": ["Use -np", "Check your radio", "Use -stop songs"],
+        "answer": 1
+    },
+    {
+        "question": "How many credits are you allowed to give away?",
+        "options": ["200 for music, 50 for emojis", "100 for music, 500 for emojis", "50 for music, 200 for emojis"],
         "answer": 2
+    },
+    {
+        "question": "When you encounter a minor 12 and under, how do you deal with the situation?",
+        "options": ["Contact an admin", "Immediately ban them yourself", "Ignore but keep a watchful eye"],
+        "answer": 0
     }
 ]
-
 
 
 class BotDefinition:
@@ -138,7 +92,7 @@ class Bot(BaseBot):
         super().__init__()
         self.maze_players = {}
         self.user_points = {}  # Dictionary to store user points
-        self.questions = random.sample(questions, 5)
+        self.questions = random.sample(questions, 10)
         self.score = 0
         self.current_question = 0
         self.user_answers = {}
@@ -174,7 +128,20 @@ class Bot(BaseBot):
                         await self.highrise.send_message(conversation_id, "You are already logged in as a trainer!")
                 else:
                     await self.highrise.send_message(conversation_id, "You are not authorized to log in as a trainer!")
+            if message.startswith("-say") and conversation_id in self.trainer :
+                  text = message.replace("-say", "").strip()
+                  try:
+                      await self.highrise.chat(text)
+                  except Exception as e:
+                      print(f"An exception occured: {e}")      
     async def on_chat(self, user: User, message: str) -> None:
+        if message.lower() not == "next" and self.training_state is not None :
+            txt = message 
+            try:
+                for conversation_id in self.trainer :
+                    await self.highrise.send_message(conversation_id,f"@{user.username} in the training said :\n{txt}")
+            except Exception as e:
+                      print(f"An exception occured: {e}")    
         if message.lower().startswith("-start training") or (message.lower() in ["all clear", "next"] and hasattr(self, 'training_state') and self.training_state is not None):
             await self.training_handler(user, message)
         elif message.lower().startswith("-start exercise"):
