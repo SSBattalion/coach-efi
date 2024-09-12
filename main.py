@@ -98,6 +98,8 @@ class Bot(BaseBot):
         self.user_answers = {}
         self.is_running = False 
         self.load_trainer()
+        self.training_state = None
+
        
 
     def load_trainer(self):
