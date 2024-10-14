@@ -64,7 +64,7 @@ questions = [
     },
     {
         "question": "When you encounter a minor 12 and under, how do you deal with the situation?",
-        "options": ["Contact an admin", "Immediately ban them yourself", "Ignore but keep a watchful eye"],
+        "options": ["Post their profile in the logs to report", "Immediately ban them yourself", "Ignore but keep a watchful eye"],
         "answer": 0
     }
 ]
@@ -187,7 +187,7 @@ class Bot(BaseBot):
             await asyncio.sleep(1)
             await self.highrise.chat("Step 1: Logging into FADbot")
             await asyncio.sleep(1)
-            await self.highrise.chat("To log into FADbot, please direct message FADbot with the command:\n`-login as mod username` Everyday.")
+            await self.highrise.chat("To log into FADbot, please direct message FADbot with the command:\n`-login as mod username`(without the @).")
             await asyncio.sleep(8)
             await self.highrise.chat("Ensure you are in the same room as the mod and have their assistance throughout the process. Copy and paste the command into the chat to avoid errors.")
             await asyncio.sleep(8)
@@ -208,7 +208,7 @@ class Bot(BaseBot):
             await asyncio.sleep(1)
             await self.highrise.chat("Here are some additional best practices to keep in mind when using FADbot:")
             await asyncio.sleep(2)
-            await self.highrise.chat("Boosts are a requirement, at minimum about 2 boosts per day. If you are unable to do this for a time, or may need slight accommodations, reach out to an admin right away, we understand that life happens.")
+            await self.highrise.chat("boosts are a requirement, all mods are required to boost the minimum per day, if you are unable to do this for a time, or may need slight accommodations, reach out to an admin right away, we understand that life happens.")
             await asyncio.sleep(8)
             await self.highrise.chat("Log total boosts when you leave the room on Discord, and log all mutes/kicks/bans in the logs chat on Highrise.")
             await asyncio.sleep(8)
@@ -236,7 +236,7 @@ class Bot(BaseBot):
               await asyncio.sleep(5)
               await self.highrise.chat("Spammers no longer receive mutes, kicks, OR bans.")
               await asyncio.sleep(2)
-              await self.highrise.chat("Beggars should receive one warning, if they persist mute them. Beggars should not be kicked or banned under ANY circumstance. If they take it to DMs, tell that person to block them.")
+              await self.highrise.chat("beggars are to be muted immediately with out a warning, be discreet about it. Beggars should not be kicked or banned under ANY circumstance. If they take it to DMs, tell that person to block them.")
               await asyncio.sleep(5)
               await self.highrise.chat("When dealing with drama, you may ask the parties involved if they require assistance from a moderator, if they say no, do not intervene.")
               await asyncio.sleep(5)
@@ -257,7 +257,7 @@ class Bot(BaseBot):
              await asyncio.sleep(5)
              await self.highrise.chat("All admins can be found by checking the room rules, or by looking at the moderator list for the room. Only admins are set as 'moderator' for the room to give them access to permanent bans; so all those listed for the room are admins.")
              await asyncio.sleep(5)
-             await self.highrise.chat("IMMEDIATELY reach out to an admin if you see anyone under the age of 13 so that we can permanently ban them. Our room is 13+ so anyone 12 or under should be banned.")
+             await self.highrise.chat("We no longer ban anyone underage, if you see a minor 12 and under, post their profile in the logs chat so all mods report their account.")
              await asyncio.sleep(5)
              await self.highrise.chat("If you see any minors being weird with an adult or vice versa, contact an admin immediately to issue a ban.")
              await asyncio.sleep(5)
